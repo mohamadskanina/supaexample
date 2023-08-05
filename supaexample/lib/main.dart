@@ -67,6 +67,11 @@ class _LoginPageState extends State<LoginPage> {
     var response = await _client
         .rpc('get_transfer_data_by_tokensn', params: {'input_token': token});
 
+    User user = User();
+    user.token = "djfldkjfldjfld";
+    user.email = "s;kajslsjdls";
+
+    _client.from('uers').insert(user.toJson);
     if (response != null) {
       print(response[0]['email']);
 
@@ -201,9 +206,28 @@ class ProfilePage extends StatelessWidget {
 }
 
 class User {
-  String? name;
+  int? id;
   String? email;
+  String? pass;
   String? token;
+
+  User({this.id, this.email, this.pass, this.token});
+
+  User.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    email = json['email'];
+    pass = json['pass'];
+    token = json['token'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['email'] = this.email;
+    data['pass'] = this.pass;
+    data['token'] = this.token;
+    return data;
+  }
 }
 
 /*
